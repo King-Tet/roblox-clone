@@ -5,7 +5,7 @@ export default function HomeGameListItem() {
     <div className="flex flex-col mr-5 mx-auto">
       <Link href="/games/2/shark-bite-2">
         <a className="hover:no-underline">
-        <div
+          <div
             className="w-[150px] h-[150px] rounded-lg"
             style={{
               backgroundImage: 'url("/game-images/shark-bite-2.png")',
