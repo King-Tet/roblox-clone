@@ -4,23 +4,23 @@ import { NextSeo } from 'next-seo';
 
 export default function GamePage() {
   const router = useRouter();
-  const { id, title } = router.query;
+  const { id } = router.query;
 
   // Mock data for demonstration purposes
   const games = {
-    "1": {
-      title: "BIG Paintball",
+    1: {
+      title: 'BIG Paintball',
       description:
-        "BIG Paintball is an action-packed FPS game on Roblox. Engage in colorful battles and strategize with your team to emerge victorious! Sequel to the #1 Paintball game on Roblox! 🔥",
-      creator: "Tetsu",
-      age: "All Ages",
+        'BIG Paintball is an action-packed FPS game on Roblox. Engage in colorful battles and strategize with your team to emerge victorious! Sequel to the #1 Paintball game on Roblox! 🔥',
+      creator: 'Tetsu',
+      age: 'All Ages',
     },
-    "2": {
-      title: "Shark Bite 2",
+    2: {
+      title: 'Shark Bite 2',
       description:
-        "In SharkBite 2 become a boat-eating apex predator or join your friends in a battle of survival against the frenzied shark Jaws. Earn and use shark teeth to upgrade your boat, weapons, sharks and even build your own boat in the boat builder to create the ultimate frigate! We can't wait to ship you more updates over the next year, keep your eyes peeled on our new featured page in the store for the next updates 👀👍 300K LIKES TARGET = ??? 👍 200K Likes Code Achieved = 200K👍 New Ducky Boat Hull Skin for the Boat Builder! 100K Likes Code Achieved = 100K👍",
-      creator: "Tetsu",
-      age: "13+",
+        'In SharkBite 2 become a boat-eating apex predator or join your friends in a battle of survival against the frenzied shark Jaws. Earn and use shark teeth to upgrade your boat, weapons, sharks and even build your own boat in the boat builder to create the ultimate frigate! We can\'t wait to ship you more updates over the next year, keep your eyes peeled on our new featured page in the store for the next updates 👀👍 300K LIKES TARGET = ??? 👍 200K Likes Code Achieved = 200K👍 New Ducky Boat Hull Skin for the Boat Builder! 100K Likes Code Achieved = 100K👍',
+      creator: 'Tetsu',
+      age: '13+',
     },
   };
 
@@ -39,7 +39,14 @@ export default function GamePage() {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'about':
-        return <div className="p-4 text-gray-300"><b>Description</b><br></br><br></br>{game.description}</div>;
+        return (
+          <div className="p-4 text-gray-300">
+            <b>Description</b>
+            <br />
+            <br />
+            {game.description}
+          </div>
+        );
       case 'store':
         return <div className="p-4 text-gray-300">Store content coming soon!</div>;
       case 'servers':
@@ -85,18 +92,21 @@ export default function GamePage() {
           <button
             className={`p-2 ${activeTab === 'about' ? 'about-boxshadow' : 'hover-about-boxshadow'}`}
             onClick={() => setActiveTab('about')}
+            type="button"
           >
             About
           </button>
           <button
             className={`p-2 ${activeTab === 'store' ? 'about-boxshadow' : 'hover-about-boxshadow'}`}
             onClick={() => setActiveTab('store')}
+            type="button"
           >
             Store
           </button>
           <button
             className={`p-2 ${activeTab === 'servers' ? 'about-boxshadow' : 'hover-about-boxshadow'}`}
             onClick={() => setActiveTab('servers')}
+            type="button"
           >
             Servers
           </button>
