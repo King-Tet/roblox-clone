@@ -20,8 +20,8 @@ function MyApp({ Component, pageProps }) {
         <Sidebar />
         <div className="overflow-y-auto flex flex-col overflow-x-hidden h-[calc(100vh-42px)] flex-1">
           <GlobalAlert
-            type="info"
-            content="This is a test alert!"
+            type="error"
+            content="This site is in Beta, expect bugs. (This site is currently in development and isnt complete)"
           />
           <div className="flex-grow">
             <Component {...pageProps} />
