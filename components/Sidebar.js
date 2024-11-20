@@ -40,8 +40,11 @@ export default function Sidebar() {
             setUsername('Unknown User');
           }
         } else {
-          // Redirect to login if no user is authenticated
-          // window.location.href = '/login';
+          if (window.location.pathname === '/login') {
+            // do nothing :)
+          } else {
+            window.location.href = '/login';
+          }
         }
       });
     };
