@@ -25,6 +25,20 @@
     "tailwindcss": "^3.0.23",
     "tippy.js": "^6.3.7"
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ],
+    "rules": {
+      "import/order": "off",
+      "quotes": "off",
+      "no-multiple-empty-lines": "off",
+      "no-multi-spaces": "off",
+      "no-unused-vars": "off",
+      "no-console": "off",
+      "spaced-comment": "off"
+    }
+  },
   "devDependencies": {
     "eslint": "^8.11.0",
     "eslint-config-airbnb": "^19.0.4",

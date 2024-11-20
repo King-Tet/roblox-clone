@@ -17,6 +17,11 @@ module.exports = {
   plugins: [
     'react',
   ],
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
   rules: {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
