@@ -1,17 +1,17 @@
-import SidebarItem from './SidebarItem';
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
+import SidebarItem from './SidebarItem';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCrNMzKkmWCl0yfP_mLO9nhn1p1n7DMbfk",
-  authDomain: "elementgames-v4.firebaseapp.com",
-  projectId: "elementgames-v4",
-  storageBucket: "elementgames-v4.appspot.com",
-  messagingSenderId: "604113750396",
-  appId: "1:604113750396:web:8343b59f3b2a7e893efcf9",
-  measurementId: "G-CV6TY6NJBR",
+  apiKey: 'AIzaSyCrNMzKkmWCl0yfP_mLO9nhn1p1n7DMbfk',
+  authDomain: 'elementgames-v4.firebaseapp.com',
+  projectId: 'elementgames-v4',
+  storageBucket: 'elementgames-v4.appspot.com',
+  messagingSenderId: '604113750396',
+  appId: '1:604113750396:web:8343b59f3b2a7e893efcf9',
+  measurementId: 'G-CV6TY6NJBR',
 };
 
 // Initialize Firebase
@@ -19,11 +19,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-
 export default function Sidebar() {
-  const [username, setUsername] = useState(''); // Moved inside Header
-  const [userId, setUserId] = useState('');   // Moved inside Header
-  const [email, setEmail] = useState('');     // Moved inside Header
+  const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,11 +37,11 @@ export default function Sidebar() {
             const userData = docSnap.data();
             setUsername(userData.username || 'Unknown User');
           } else {
-            console.error('No user document found!');
+            setUsername('Unknown User');
           }
         } else {
           // Redirect to login if no user is authenticated
-          //window.location.href = '/login';
+          // window.location.href = '/login';
         }
       });
     };

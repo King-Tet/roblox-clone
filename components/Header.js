@@ -9,17 +9,17 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'; // Import useRouter
-import NavItem from './NavItem';
 import { initializeApp } from 'firebase/app';
+import NavItem from './NavItem';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCrNMzKkmWCl0yfP_mLO9nhn1p1n7DMbfk",
-  authDomain: "elementgames-v4.firebaseapp.com",
-  projectId: "elementgames-v4",
-  storageBucket: "elementgames-v4.appspot.com",
-  messagingSenderId: "604113750396",
-  appId: "1:604113750396:web:8343b59f3b2a7e893efcf9",
-  measurementId: "G-CV6TY6NJBR",
+  apiKey: 'AIzaSyCrNMzKkmWCl0yfP_mLO9nhn1p1n7DMbfk',  // Single quotes
+  authDomain: 'elementgames-v4.firebaseapp.com',
+  projectId: 'elementgames-v4',
+  storageBucket: 'elementgames-v4.appspot.com',
+  messagingSenderId: '604113750396',
+  appId: '1:604113750396:web:8343b59f3b2a7e893efcf9',
+  measurementId: 'G-CV6TY6NJBR',
 };
 
 // Initialize Firebase
@@ -27,23 +27,15 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-  
-
 export default function Header() {
   const [searchMenuOpen, setSearchMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [username, setUsername] = useState(''); // Moved inside Header
-  const [userId, setUserId] = useState('');   // Moved inside Header
-  const [email, setEmail] = useState('');     // Moved inside Header
-  const { id } = useRouter().query;
 
   useEffect(() => {
     const fetchUserData = async () => {
       onAuthStateChanged(auth, async (user) => {
         if (user) {
-          setUserId(user.uid);
-          setEmail(user.email);
-
           const userDoc = doc(db, 'users', user.uid);
           const docSnap = await getDoc(userDoc);
 
@@ -51,7 +43,7 @@ export default function Header() {
             const userData = docSnap.data();
             setUsername(userData.username || 'Unknown User');
           } else {
-            console.error('No user document found!');
+            setUsername('Unknown User');
           }
         } else {
           // Redirect to login if no user is authenticated
@@ -162,16 +154,17 @@ export default function Header() {
           <Link href="/users/2/profile">
             <a className="flex items-center">
               <Image
-                src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlPi5zdDJ7ZmlsbDpub25lO3N0cm9rZTojMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMH08L3N0eWxlPjxnIGlkPSJ1bmFwcHJvdmVkXzFfIj48cGF0aCBpZD0iYmdfMl8iIGZpbGw9IiM2NTY2NjgiIGQ9Ik0wIDBoOTB2OTBIMHoiLz48ZyBpZD0idW5hcHByb3ZlZCIgb3BhY2l0eT0iLjMiPjxjaXJjbGUgY2xhc3M9InN0MiIgY3g9IjQ1IiBjeT0iNDguOCIgcj0iMTAiLz48cGF0aCBjbGFzcz0ic3QyIiBkPSJNMzggNDEuN2wxNCAxNC4xTTMyLjUgMjMuNWgtNHY0TTI4LjUgNjIuNXY0aDRNMjguNSAzMS44djZNMjguNSA0MnY2TTI4LjUgNTIuMnY2TTU3LjUgNjYuNWg0di00TTYxLjUgNTguMnYtNk02MS41IDQ4di02TTYxLjUgMzcuOHYtNE0zNi44IDY2LjVoNk00Ny4yIDY2LjVoNk0zNi44IDIzLjVoNk00Ny4yIDIzLjVoNE01MS40IDIzLjZsMy41IDMuNU01Ny45IDMwLjFsMy41IDMuNU01MS4yIDIzLjh2M001OC41IDMzLjhoM001MS4yIDMwLjJ2My42aDMuNiIvPjwvZz48L2c+PC9zdmc+"
+                src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlPi5zdTJ7ZmlsbDpub25lO3N0cm9rZTojMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMH08L3N0eWxlPjxnIGlkPSJ1bmFwcHJvdmVkXzFfIj48cGF0aCBpZD0iYmdfMl8iIGZpbGw9IiM2NTY2NjgiIGQ9Ik0wIDBoOTB2OTBIMHoiLz48ZyBpZD0idW5hcHByb3ZlZCIgb3BhY2l0eT0iLjMiPjxjaXJjbGUgY2xhc3M9InN0MiIgY3g9IjQ1IiBjeT0iNDguOCIgcj0iMTAiLz48cGF0aCBjbGFzcz0ic3QyIiBkPSJNMzggNDEuN2wxNCAxNC4xTTMyLjUgMjMuNWgtNHY0TTI4LjUgNjIuNXY0aDRNMjguNSAzMS44djZNMjguNSA0MnY2TTI4LjUgNTIuMnY2TTU3LjUgNjYuNWg0di00TTYxLjUgNTguMnYtNk02MS41IDQ4di02TTYxLjUgMzcuOHYtNE0zNi44IDY2LjVoNk00Ny4yIDY2LjVoNk0zNi44IDIzLjVoNk00Ny4yIDIzLjVoNE01MS40IDIzLjZsMy41IDMuNU01Ny45IDMwLjFsMy41IDMuNU01MS4yIDIzLjh2M001OC41IDMzLjhoM001MS4yIDMwLjJ2My42aDMuNiIvPjwvZz48L2c+PC9zdmc+"
                 width={28}
                 height={28}
                 className="rounded-full"
               />
               <span className="text-xs font-medium ml-1">
-              {username}
+                {username}
               </span>
             </a>
           </Link>
+
           <span className="text-xs text-gray-300 ml-1">
             13+
           </span>

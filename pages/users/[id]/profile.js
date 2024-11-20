@@ -1,5 +1,3 @@
-import Tippy from '@tippyjs/react';
-import { roundArrow } from 'tippy.js';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { doc, getDoc } from 'firebase/firestore';
@@ -12,7 +10,8 @@ import Container from '../../../components/Container';
 import ProfileGroupCarousel from '../../../components/ProfileGroupCarousel';
 import HomeGameList from '../../../components/HomeGameList';
 import RobloxBadge from '../../../components/Profile/RobloxBadge';
-
+import Tippy from '@tippyjs/react';
+import { roundArrow } from 'tippy.js';
 
 export default function UserProfile() {
   const [userData, setUserData] = useState(null);
@@ -38,8 +37,6 @@ export default function UserProfile() {
         setLoading(false);
       }
     };
-
-    
 
     fetchUserProfile();
   }, [id]);
@@ -90,9 +87,7 @@ export default function UserProfile() {
         </div>
       </div>
       <div className="section mt-4 grid grid-cols-2 text-center font-medium">
-        <div
-          className="p-2 about-boxshadow"
-        >
+        <div className="p-2 about-boxshadow">
           About
         </div>
         <div className="p-2 hover-about-boxshadow">
@@ -163,6 +158,5 @@ export default function UserProfile() {
 
       {/* Include other sections, such as Groups, Badges, etc., as before */}
     </div>
-
   );
 }
