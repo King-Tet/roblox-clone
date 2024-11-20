@@ -1,16 +1,67 @@
 /* eslint-disable react/no-danger */
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'; // Import useRouter
 import NavItem from './NavItem';
+import { initializeApp } from 'firebase/app';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCrNMzKkmWCl0yfP_mLO9nhn1p1n7DMbfk",
+  authDomain: "elementgames-v4.firebaseapp.com",
+  projectId: "elementgames-v4",
+  storageBucket: "elementgames-v4.appspot.com",
+  messagingSenderId: "604113750396",
+  appId: "1:604113750396:web:8343b59f3b2a7e893efcf9",
+  measurementId: "G-CV6TY6NJBR",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+  
 
 export default function Header() {
   const [searchMenuOpen, setSearchMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [username, setUsername] = useState(''); // Moved inside Header
+  const [userId, setUserId] = useState('');   // Moved inside Header
+  const [email, setEmail] = useState('');     // Moved inside Header
+  const { id } = useRouter().query;
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          setUserId(user.uid);
+          setEmail(user.email);
+
+          const userDoc = doc(db, 'users', user.uid);
+          const docSnap = await getDoc(userDoc);
+
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            setUsername(userData.username || 'Unknown User');
+          } else {
+            console.error('No user document found!');
+          }
+        } else {
+          // Redirect to login if no user is authenticated
+          window.location.href = '/login';
+        }
+      });
+    };
+
+    fetchUserData();
+  }, []);
 
   function getSanitizedSearchValue() {
     return searchValue.replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -117,7 +168,7 @@ export default function Header() {
                 className="rounded-full"
               />
               <span className="text-xs font-medium ml-1">
-                @Zenternal
+              {username}
               </span>
             </a>
           </Link>
@@ -177,7 +228,7 @@ export default function Header() {
                 bg-white bg-opacity-0 hover:bg-opacity-20 flex items-center"
           >
             <span className="icon-spritesheet-5 icon-robux" />
-            <span className="font-medium ml-1">202.1K</span>
+            <span className="font-medium ml-1">0</span>
           </a>
         </Tippy>
         <Tippy

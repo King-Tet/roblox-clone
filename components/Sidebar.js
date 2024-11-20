@@ -1,6 +1,55 @@
 import SidebarItem from './SidebarItem';
+import { useState, useEffect } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCrNMzKkmWCl0yfP_mLO9nhn1p1n7DMbfk",
+  authDomain: "elementgames-v4.firebaseapp.com",
+  projectId: "elementgames-v4",
+  storageBucket: "elementgames-v4.appspot.com",
+  messagingSenderId: "604113750396",
+  appId: "1:604113750396:web:8343b59f3b2a7e893efcf9",
+  measurementId: "G-CV6TY6NJBR",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
 
 export default function Sidebar() {
+  const [username, setUsername] = useState(''); // Moved inside Header
+  const [userId, setUserId] = useState('');   // Moved inside Header
+  const [email, setEmail] = useState('');     // Moved inside Header
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          setUserId(user.uid);
+          setEmail(user.email);
+
+          const userDoc = doc(db, 'users', user.uid);
+          const docSnap = await getDoc(userDoc);
+
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            setUsername(userData.username || 'Unknown User');
+          } else {
+            console.error('No user document found!');
+          }
+        } else {
+          // Redirect to login if no user is authenticated
+          //window.location.href = '/login';
+        }
+      });
+    };
+
+    fetchUserData();
+  }, []);
   return (
     <div className="w-[175px] h-[calc(100vh-42px)] bg-[#191b1d]">
       <div className="w-full border-b border-gray-600 flex items-center p-2 font-medium">
@@ -8,7 +57,7 @@ export default function Sidebar() {
           className="placeholder-spritesheet rounded-full placeholder-avatar w-6 h-6 mr-2"
           style={{ backgroundSize: '24px', backgroundPosition: '0 48px' }}
         />
-        ollie
+        {username}
       </div>
 
       <div className="flex flex-col mt-2">
@@ -17,7 +66,7 @@ export default function Sidebar() {
             <div className="icon-spritesheet icon-nav-home mr-2" />
             Home
           </SidebarItem>
-          <SidebarItem href="/users/2/profile">
+          <SidebarItem href={`/users/${userId}/profile`}>
             <div className="icon-spritesheet icon-nav-profile mr-2" />
             Profile
           </SidebarItem>
