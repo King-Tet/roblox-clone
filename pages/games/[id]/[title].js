@@ -14,6 +14,7 @@ export default function GamePage() {
         'BIG Paintball is an action-packed FPS game on Roblox. Engage in colorful battles and strategize with your team to emerge victorious! Sequel to the #1 Paintball game on Roblox! 🔥',
       creator: 'Tetsu',
       age: 'All Ages',
+      id: '1',
     },
     2: {
       title: 'Shark Bite 2',
@@ -21,6 +22,7 @@ export default function GamePage() {
         'In SharkBite 2 become a boat-eating apex predator or join your friends in a battle of survival against the frenzied shark Jaws. Earn and use shark teeth to upgrade your boat, weapons, sharks and even build your own boat in the boat builder to create the ultimate frigate! We can\'t wait to ship you more updates over the next year, keep your eyes peeled on our new featured page in the store for the next updates 👀👍 300K LIKES TARGET = ??? 👍 200K Likes Code Achieved = 200K👍 New Ducky Boat Hull Skin for the Boat Builder! 100K Likes Code Achieved = 100K👍',
       creator: 'Tetsu',
       age: '13+',
+      id: '2',
     },
   };
 
@@ -56,65 +58,75 @@ export default function GamePage() {
     }
   };
 
-  return (
-    <div className="max-w-5xl ml-56 mt-5">
-      <NextSeo title={game.title} description={game.description} />
-      <div className="flex">
-        <div className="w-[640px] h-[360px] bg-neutral-600" />
-        <div className="ml-5 flex flex-col flex-grow">
-          <span className="text-3xl font-black">{game.title}</span>
-          <span className="text-gray-400 font-semibold">
-            By
-            <a className="text-white ml-1">
-              {game.creator}
-              <span
-                className="icon-verified-small ml-1"
-                title="Premium Badge Icon"
-              />
-            </a>
-          </span>
-          <span className="text-gray-400">{game.age}</span>
+  const OpenUrlButton = () => {
+    const handleClick = () => {
+      const url = `/play/${game.id}`; // Use the game's ID for the dynamic URL
+      window.open(url, "_blank", `width=${window.innerWidth},height=${window.innerHeight}`);
+    };
 
-          <div className="flex flex-col mt-auto">
-            <button
-              className="bg-emerald-500 w-full rounded-xl p-3 text-4xl"
-              type="button"
-            >
-              ▶
-            </button>
-            { /* favourite, follow and rating buttons here */}
+    return (
+      <div className="max-w-5xl ml-56 mt-5">
+        <NextSeo title={game.title} description={game.description} />
+        <div className="flex">
+          <div className="w-[640px] h-[360px] bg-neutral-600" />
+          <div className="ml-5 flex flex-col flex-grow">
+            <span className="text-3xl font-black">{game.title}</span>
+            <span className="text-gray-400 font-semibold">
+              By
+              <a className="text-white ml-1">
+                {game.creator}
+                <span
+                  className="icon-verified-small ml-1"
+                  title="Premium Badge Icon"
+                />
+              </a>
+            </span>
+            <span className="text-gray-400">{game.age}</span>
+
+            <div className="flex flex-col mt-auto">
+              <button
+                className="bg-emerald-500 w-full rounded-xl p-3 text-4xl"
+                type="button"
+                onClick={handleClick}
+              >
+                ▶
+              </button>
+              {/* favourite, follow and rating buttons here */}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="mt-5">
-        <div className="section grid grid-cols-3 font-medium text-center">
-          <button
-            className={`p-2 ${activeTab === 'about' ? 'about-boxshadow' : 'hover-about-boxshadow'}`}
-            onClick={() => setActiveTab('about')}
-            type="button"
-          >
-            About
-          </button>
-          <button
-            className={`p-2 ${activeTab === 'store' ? 'about-boxshadow' : 'hover-about-boxshadow'}`}
-            onClick={() => setActiveTab('store')}
-            type="button"
-          >
-            Store
-          </button>
-          <button
-            className={`p-2 ${activeTab === 'servers' ? 'about-boxshadow' : 'hover-about-boxshadow'}`}
-            onClick={() => setActiveTab('servers')}
-            type="button"
-          >
-            Servers
-          </button>
+        <div className="mt-5">
+          <div className="section grid grid-cols-3 font-medium text-center">
+            <button
+              className={`p-2 ${activeTab === 'about' ? 'about-boxshadow' : 'hover-about-boxshadow'}`}
+              onClick={() => setActiveTab('about')}
+              type="button"
+            >
+              About
+            </button>
+            <button
+              className={`p-2 ${activeTab === 'store' ? 'about-boxshadow' : 'hover-about-boxshadow'}`}
+              onClick={() => setActiveTab('store')}
+              type="button"
+            >
+              Store
+            </button>
+            <button
+              className={`p-2 ${activeTab === 'servers' ? 'about-boxshadow' : 'hover-about-boxshadow'}`}
+              onClick={() => setActiveTab('servers')}
+              type="button"
+            >
+              Servers
+            </button>
+          </div>
+
+          {/* Tab Content */}
+          <div className="mt-4">{renderTabContent()}</div>
         </div>
-
-        {/* Tab Content */}
-        <div className="mt-4">{renderTabContent()}</div>
       </div>
-    </div>
-  );
+    );
+  };
+
+  return <OpenUrlButton />;
 }

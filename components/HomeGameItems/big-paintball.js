@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function HomeGameListItem() {
   return (
     <div className="flex flex-col mr-5 mx-auto">
-      <Link href="/games/1/mic-up">
+      <Link href="/games/1/big-paintball">
         <a className="hover:no-underline">
           <div
             className="w-[150px] h-[150px] rounded-lg"

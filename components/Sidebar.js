@@ -22,6 +22,7 @@ const db = getFirestore(app);
 export default function Sidebar() {
   const [username, setUsername] = useState('');
   const [userId, setUserId] = useState('');
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
